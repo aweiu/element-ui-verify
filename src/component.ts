@@ -26,8 +26,8 @@ export default class ElFormItemVerifyComponent extends Vue {
   @Watch('validateMessage')
   onValidateMessageChanged (msg: string) {
     if (this._verify && msg !== '') {
-      const alias = this.alias || (this as any).label
-      if (alias) (this as any).validateMessage = errorMessage.macroToValue((this as any).validateMessage, 'alias', alias)
+      const alias = this.alias || (this as any).label || '该输入项';
+      (this as any).validateMessage = errorMessage.macroToValue((this as any).validateMessage, 'alias', alias)
     }
   }
 

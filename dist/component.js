@@ -16,9 +16,8 @@ let ElFormItemVerifyComponent = ElFormItemVerifyComponent_1 = class ElFormItemVe
     // watch某值并修改该值本身会额外触发一次，性能影响不大，暂不做过滤了。后期可能会用其它方式拦截
     onValidateMessageChanged(msg) {
         if (this._verify && msg !== '') {
-            const alias = this.alias || this.label;
-            if (alias)
-                this.validateMessage = errorMessage.macroToValue(this.validateMessage, 'alias', alias);
+            const alias = this.alias || this.label || '该输入项';
+            this.validateMessage = errorMessage.macroToValue(this.validateMessage, 'alias', alias);
         }
     }
     onWatchChanged() {
