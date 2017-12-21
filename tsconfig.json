@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "moduleResolution": "node",
+    "target": "ES2017",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "declaration": true,
+    "declarationDir": "./types/",
+    "outDir": "./dist"
+  }
+}
