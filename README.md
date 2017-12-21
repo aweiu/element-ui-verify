@@ -73,14 +73,14 @@ ok，您已经完成了一个内容不能为空且为数字的基础校验！([�
 如要使用自定义模板，模板内容要覆盖[默认模板](#插件的默认校验不通过提示模版)中定义的所有字段，否则某些规则可能出空错误提示
 
 ### fieldChange
-绑定字段变化时，插件的默认行为。默认值：'verify'
+当绑定字段变化时，插件的默认行为。默认值：'verify'
 > 注意：在输入框失去焦点时会始终触发校验
 
 #### verify
-当输入内容变化时会实时触发校验 
+当绑定字段变化时会实时触发校验 
 
 #### clear
-当输入内容变化时会清空校验结果，不触发校验
+当绑定字段变化时只清空校验结果，不触发校验
 ```
 Vue.use(elementUIVerify, {
   errorMessageTemplate: yourErrorMessageTemplate,
@@ -89,22 +89,22 @@ Vue.use(elementUIVerify, {
 ```
 ## 重要选项说明
 ### verify
-若要使用本插件，verify选项是必须的，换句话说，如果没有设置该选项，那么您仍然可以正常使用ElementUI原生的校验
+若要使用本插件，verify选项是必须的，换句话说，如果没有配置该选项，那么您仍然可以正常使用ElementUI原生的校验
 
-该选项还可以接收一个函数值，用于[自定义校验方法]()
+该选项还可以接收一个函数值，用于[自定义校验方法](#自定义校验方法)
 ### errorMessage
 用于自定义校验不通过提示(`空检测和自定义校验方法的错误提示不受该值影响`)
 ```
 <el-form-item prop="numberProp" verify number error-message="请输入正确的数字"></el-form-item>
 ```
 ### canBeEmpty
-*插件默认开启输入内容不为空校验，如果开启该选项，一旦该输入项为空则会忽略该输入项之后所有的校验*
+> 插件默认开启输入内容不为空校验，如果开启该选项，一旦该输入项为空则会忽略该输入项之后所有的校验
 
 该选项一般用于如下情况，比如邀请码这种一般可以为空，不为空又需要校验的输入项
 
 ```
 <!--当邀请码不为空时才校验长度是否等于6-->
-<el-form-item prop="invitationCode" verify :length="6" can-be-empty error-message="邀请码不正确"></el-form-item>
+<el-form-item prop="invitationCode" verify can-be-empty :length="6" error-message="邀请码不正确"></el-form-item>
 ```
 ### space
 插件执行空检测时默认忽略空格，也就是说某个输入框中如果只输入了空格是过不了空检测的，除非设置该选项
@@ -128,9 +128,9 @@ Vue.use(elementUIVerify, {
 ```
 * 当`unknown`输入框为空时，会提示"该输入项不能为空"（alias值默认为"该输入项"）
 * 当`姓名`输入框为空时，会提示"姓名不能为空"（显式设置了alias值时，提示内容自然会以该值去替换模板)
-* 当`地址`输入框为空时，会提示"地址不能为空"（大部分el-form-item都需要设置一个label项，而label项往往就代表该输入项的alias，因此插件也会取该值直接作为alias，很贴心有木有）
+* 当`地址`输入框为空时，会提示"地址不能为空"（大部分el-form-item都需要设置一个label项，而label项往往就代表该输入项的alias，因此插件会取该值直接作为alias，很贴心有木有）
 ### fieldChange
-参见全局[fieldChange]()配置
+参见全局[fieldChange](#fieldchange)配置
 
 ### watch
 监听其他变量，触发自身校验
@@ -142,7 +142,7 @@ Vue.use(elementUIVerify, {
     <el-form-item label="密码" prop="pass1" verify>
       <el-input v-model="model.pass1"></el-input>
     </el-form-item>
-    <el-form-item label="确认密码" prop="pass2" :verify="verifyPassword">
+    <el-form-item label="确认密码" prop="pass2" :verify="verifyPassword" :watch="model.pass1">
       <el-input v-model="model.pass2"></el-input>
     </el-form-item>
   </el-form>
@@ -188,17 +188,17 @@ export default{
 ```
 ### 注意事项
 * 所有选项调用不能有大写字母，用中划线分隔，同vue props属性设置规则
-* length,minLength,gt,gte,lt,lte,maxDecimalLength等需要接收值的选项，该值需为数字(`:length="1"`)
-* canBeEmpty,space,number,int等无须接收值的选项一旦设置了，可以通过赋值为`undefined`来取消
+* length,minLength,gt,gte,lt,lte,maxDecimalLength等需要接收数值的选项，该值需为数字(`:length="1"`)
+* verify,canBeEmpty,space,number,int等无须接收值的选项一旦设置了，可以通过赋值为`undefined`来取消
 
 ## 规则简写
-number/int/phone等无须设定值的选项可以直接：
+number,int,phone等无须设定值的选项可以直接：
 ```
 <el-form-item prop="prop" verify number></el-form-item>
 <!--不用这么写-->
 <el-form-item prop="prop" verify :number="true"></el-form-item>
 ```
-gt/gte/lt/lte/maxDecimalLength等数字规则无须再写number规则
+gt,gte,lt,lte,maxDecimalLength等数字规则无须再写number规则
 ```
 <!--该输入项内容必须为不大于10的数字-->
 <el-form-item prop="prop" verify :lte="10"></el-form-item>
@@ -210,7 +210,7 @@ gt/gte/lt/lte/maxDecimalLength等数字规则无须再写number规则
 用于[自定义校验规则](#自定义校验规则)
 
 #### `name`: 规则名称
-本插件的校验选项基于Vue组件的[Prop](https://cn.vuejs.org/v2/guide/components.html#Prop)，故该参数可以是一个类似VueProp配置项：
+本插件的校验选项基于Vue组件的[Prop](https://cn.vuejs.org/v2/guide/components.html#Prop)，故该参数可以是一个类似VueProp的配置项：
 ```
 {
   name: 'length',
@@ -220,7 +220,7 @@ gt/gte/lt/lte/maxDecimalLength等数字规则无须再写number规则
   }
 }
 ```
-这么做得好处是可以对规则接收值本身也做一些限制，提前规避一些不必要的调用错误，比如：
+这么做的好处是可以对规则接收值本身也做一些限制，提前规避一些不必要的调用错误，比如：
 ```
 <el-form-item prop="prop" verify length="哈哈哈"></el-form-item>
 ```
@@ -230,7 +230,7 @@ import elementUIVerify from 'element-ui-verify'
 elementUIVerify.addRule('length', length => SomeRule)
 ```
 #### `getter`: asyncValidatorRule获取方法
-该回调可以返回单条规则或规则数组
+该回调可以返回单条规则或规则数组，具体规则需要参见[async-validator](https://github.com/yiminghe/async-validator)
 ```
 // 单条
 () => ({type: 'number', message: '请输入数字'})
@@ -245,7 +245,7 @@ gte => [
 ### getRule (name: string): RuleGetter
 用于获取校验规则。一般是和[自定义校验规则](#自定义校验规则)搭配使用，方便已有规则的复用
 
-返回内容即为[addRule]()传入的`getter`参数
+返回内容即为[addRule](#addrule-name-string--verifyrulepropoptions-getter-rulegetter-rulegetter)传入的`getter`参数
 
 ### getErrorMessage (name: string, templateData?: any): string
 用于从通用错误提示模板中获取错误提示。一般是和[自定义校验规则](#自定义校验规则)搭配使用
@@ -275,7 +275,7 @@ elementUIVerify.getErrorMessage('maxDecimalLength', {MDL: 2})
 ## 自定义校验方法
 如果自带的校验规则满足不了您的需求，可以在校验规则中插入您自己的[校验方法](https://github.com/yiminghe/async-validator#validator)
 
-*自定义校验方法在校验规则都通过后才会执行*
+> 自定义校验方法在校验规则都通过后才会执行
 ```
 <template>
   <el-form :model="model">
@@ -301,13 +301,16 @@ export default{
       // val: 待校验值
       // callback: 校验结果回调 具体可以点击上文的"校验方法"链接查看
       if (['010', '011'].indexOf(val.substr(0, 3)) === -1) callback(Error('错误的卡号'))
+      else callback()
     }
   }
 }
 </script>
 ```
 ## 自定义校验规则
-和自定义校验方法的区别是这个适用于全局，等于增加插件自带的校验规则。前言已经说过，本插件的核心校验器来自async-validator，故校验规则需要您先参考它的[文档](https://github.com/yiminghe/async-validator)
+和自定义校验方法的区别是这个适用于全局，等于增加插件自带的校验规则
+
+前言已经说过，本插件的核心校验器来自async-validator，故校验规则需要您先参考它的[文档](https://github.com/yiminghe/async-validator)
 
 示例1：新增一个校验是否为10位整数的规则
 ```
@@ -321,7 +324,7 @@ elementUIVerify.addRule('int10', () => [
   {
     validator (rule, val, callback) {
       if ((val + '').length !== 10) {
-        // 尽量将出错提示定义在错误模板中（假设为{int10: '该输入项为10位整数'}），通过此种方式获取
+        // 尽量将出错提示定义在错误模板中（假设为{int10: '该输入项为10位整数'}）
         const errorMessage = elementUIVerify.getErrorMessage('int10')
         callback(Error(errorMessage))
       } else callback()
@@ -337,7 +340,7 @@ elementUIVerify.addRule('int10', () => [
 ```
 import elementUIVerify from 'element-ui-verify'
 const intRuleGetter = elementUIVerify.getRule('int')
-// 这里最好不要再直接传入'intLength'了，而是一个类VueProp配置项 来对规则参数稍作限制
+// 这里最好不要再直接传入'intLength'了，而是一个类似VueProp的配置项，来对规则参数稍作限制
 elementUIVerify.addRule({name: 'intLength', type: Number}, intLength => [
   intRuleGetter(),
   // 校验整数长度是否符合规则
@@ -356,7 +359,7 @@ elementUIVerify.addRule({name: 'intLength', type: Number}, intLength => [
 ```
 <el-form-item prop="prop" verify :int-length="10"></el-form-item>
 ```
-更多示例您可以直接翻看本插件[源码]()中默认规则的添加
+更多示例您可以直接翻看本插件[源码](https://github.com/aweiu/element-ui-verify/blob/master/src/index.ts#L52)中默认规则的添加
 
 ## 插件的默认校验不通过提示模版
 ```
@@ -379,14 +382,14 @@ elementUIVerify.addRule({name: 'intLength', type: Number}, intLength => [
 ## 常见问题
 **为什么不把prop配置项干掉？每次都要写校验规则都要写它好烦！**
 
-我也烦。因为我这个插件是基于ElementUI的，所以很多选项的设定会受限制，并要尽可能不破坏到它的其他功能。比如这个prop选项，如果把它干掉，会影响到el-form的校验，ElementUI以prop作为uid来存储校验队列
+我也烦。但本插件是基于ElementUI的，所以很多地方会受到原始校验机制的限制，还要尽可能不对它产生影响。比如这个prop选项，如果把它干掉，会影响到el-form的校验，因为ElementUI以prop作为uid来存储校验队列
 
 **如何切换校验类型？比如某个输入框可能输入手机号也可能输入邮箱**
 ```
 <el-form-item prop="prop" verify phone v-if="isPhone"></el-form-item>
 <el-form-item prop="prop" verify email v-else></el-form-item>
 ```
-在规则变化不多的情况下也可以这样（该种方式切换类型会立即触发校验）
+在规则变化不多的情况下也可以这样（该种方式切换类型时会立即触发校验）
 ```
 <el-form-item prop="prop" verify :phone="isPhone ? true : undefined" :email="isPhone ? undefined : true"></el-form-item>
 ```
