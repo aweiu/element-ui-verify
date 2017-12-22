@@ -21,7 +21,7 @@ npm install element-ui-verify
 ### 一，安装
 ```
 import Vue from 'vue'
-import elementUI from 'element-ui-verify'
+import elementUI from 'element-ui'
 import elementUIVerify from 'element-ui-verify'
 
 // 这里注意必须得先use elementUI
