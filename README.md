@@ -1,5 +1,5 @@
 # element-ui-verify
-如果你受够了饿了么ElementUI原生的校验方式，那就来试试它吧!
+如果你受够了饿了么ElementUI原生的校验方式，那就来试试它吧！
 
 ## 前言
 饿了么ElementUI虽好，但表单校验的体验不够理想
