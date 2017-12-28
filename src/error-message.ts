@@ -19,7 +19,7 @@ export default {
   },
   get (name: string, templateData?: any): string {
     let msg = template[name]
-    if (!msg) return 'invalid value'
+    if (!msg) throw Error(`can't get the value of errorMessageTemplate['${name}']`)
     if (arguments.length === 1) return msg
     if (typeof templateData !== 'object') templateData = createMacroMap(name, templateData)
     for (let macro in templateData) msg = this.macroToValue(msg, macro, templateData[macro])
