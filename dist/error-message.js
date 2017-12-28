@@ -15,7 +15,7 @@ export default {
     get(name, templateData) {
         let msg = template[name];
         if (!msg)
-            return 'invalid value';
+            throw Error(`can't get the value of errorMessageTemplate['${name}']`);
         if (arguments.length === 1)
             return msg;
         if (typeof templateData !== 'object')
