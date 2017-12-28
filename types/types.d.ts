@@ -13,5 +13,5 @@ export declare type ErrorMessageTemplate = {
     phone: string;
     email: string;
     verifyCode: string;
-    [name: string]: string | undefined;
+    [name: string]: string;
 };
