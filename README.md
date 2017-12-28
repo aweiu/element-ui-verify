@@ -70,7 +70,7 @@ ok，您已经完成了一个内容不能为空且为数字的基础校验！([�
 ### errorMessage
 错误提示模板。默认值：[默认模板](#插件的默认校验不通过提示模版)
 
-如要使用自定义模板，模板内容要覆盖[默认模板](#插件的默认校验不通过提示模版)中定义的所有字段，否则[getErrorMessage](#getErrorMessage)在获取不到值的时候会抛异常
+如要使用自定义模板，模板内容要覆盖[默认模板](#插件的默认校验不通过提示模版)中定义的所有字段，否则[getErrorMessage](#geterrormessage-name-string-templatedata-any-string)在获取不到值的时候会抛异常
 
 ### fieldChange
 当绑定字段变化时，插件的默认行为。默认值：'verify'
