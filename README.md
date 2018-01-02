@@ -159,7 +159,7 @@ export default{
   },
   methods: {
     verifyPassword (rule, val, callback) {
-      if (val !== this.pass1) callback(Error('两次输入密码不一致!'))
+      if (val !== this.model.pass1) callback(Error('两次输入密码不一致!'))
       else callback()
     }
   }
