@@ -300,7 +300,7 @@ export default{
       // rule: 这个参数很恶心，不经常用到还要放在第一位，不过为了保持async-validator的风格，还是留着它了
       // val: 待校验值
       // callback: 校验结果回调 具体可以点击上文的"校验方法"链接查看
-      if (['010', '011'].indexOf(val.substr(0, 3)) === -1) callback(Error('错误的卡号'))
+      if (!['010', '011'].includes(val.substr(0, 3))) callback(Error('错误的卡号'))
       else callback()
     }
   }
