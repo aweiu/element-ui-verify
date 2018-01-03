@@ -1,4 +1,4 @@
-import Vue, { PluginObject } from 'vue'
+import Vue from 'vue'
 import elementUI from 'element-ui'
 import rules from './rules'
 import errorMessage from './error-message'
