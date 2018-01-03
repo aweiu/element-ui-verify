@@ -1,8 +1,9 @@
 {
   "name": "element-ui-verify",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "如果你受够了饿了么ElementUI原生的校验方式，那就来试试它吧！一款更懂你的校验插件",
   "keywords": [
+    "vue",
     "element",
     "element-ui",
     "elementUi",
@@ -27,13 +28,17 @@
   },
   "homepage": "https://github.com/aweiu/element-ui-verify#readme",
   "dependencies": {
-    "vue": "^2.5.2",
-    "element-ui": "^2.0.7",
     "vue-property-decorator": "^6.0.0"
   },
+  "peerDependencies": {
+    "element-ui": "^2.0.1",
+    "vue": "^2.5.2"
+  },
   "devDependencies": {
+    "element-ui": "^2.0.1",
     "tslint": "^5.8.0",
     "tslint-config-standard": "^7.0.0",
-    "typescript": "^2.6.2"
+    "typescript": "^2.6.2",
+    "vue": "^2.5.2"
   }
 }
