@@ -75,9 +75,20 @@ export default class ElFormItemVerifyComponent extends Vue {
     }] : asyncVerifyRules
   }
 
+  // 兼容<2.0.0-beta.1
+  clearValidate () {
+    const method = (elementUI.FormItem as any).methods.clearValidate
+    if (method) {
+      method.apply(this, arguments)
+    }
+    (this as any).validateState = '';
+    (this as any).validateMessage = '';
+    (this as any).validateDisabled = false
+  }
+
   onFieldChange () {
     const fieldChange = this.fieldChange || ElFormItemVerifyComponent.fieldChange
     if (!this._verify || fieldChange !== 'clear') (elementUI.FormItem as any).methods.onFieldChange.apply(this, arguments)
-    else if (this._verify && fieldChange === 'clear') (this as any).clearValidate()
+    else if (this._verify && fieldChange === 'clear') this.clearValidate()
   }
 }
