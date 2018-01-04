@@ -68,6 +68,16 @@ let ElFormItemVerifyComponent = ElFormItemVerifyComponent_1 = class ElFormItemVe
                 }
             }] : asyncVerifyRules;
     }
+    // 兼容<2.0.0-beta.1
+    clearValidate() {
+        const method = elementUI.FormItem.methods.clearValidate;
+        if (method) {
+            method.apply(this, arguments);
+        }
+        this.validateState = '';
+        this.validateMessage = '';
+        this.validateDisabled = false;
+    }
     onFieldChange() {
         const fieldChange = this.fieldChange || ElFormItemVerifyComponent_1.fieldChange;
         if (!this._verify || fieldChange !== 'clear')
