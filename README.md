@@ -16,7 +16,8 @@ npm install element-ui-verify
 ```
 ## 使用
 ### 环境
-`VUE版本：2.x`
+`vue版本：^2.3.0`
+`element-ui版本：>=1.1.1`
 `webpack模块环境`
 ### 一，安装
 ```
