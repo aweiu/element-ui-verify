@@ -40,8 +40,12 @@ export default class ElFormItemVerifyComponent extends Vue {
     return this.verify !== undefined && (this as any).prop
   }
 
-  getRules (): object[] {
-    if (!this._verify) return (elementUI.FormItem as any).methods.getRules.apply(this, arguments)
+  cacheElementUIGetRules (...arg: any[]) {
+    return (elementUI.FormItem as any).methods.getRules.bind(this, ...arg)
+  }
+
+  getRules (...arg: any[]): object[] {
+    if (!this._verify) return this.cacheElementUIGetRules(...arg)
     // 空检测
     let fieldValue = (this as any).fieldValue + ''
     if (this.space === undefined) fieldValue = fieldValue.trim()
@@ -75,20 +79,25 @@ export default class ElFormItemVerifyComponent extends Vue {
     }] : asyncVerifyRules
   }
 
+  cacheElementUIClearValidate (...arg: any[]) {
+    return (elementUI.FormItem as any).methods.clearValidate.bind(this, ...arg)
+  }
+
   // 兼容<2.0.0-beta.1
-  clearValidate () {
-    const method = (elementUI.FormItem as any).methods.clearValidate
-    if (method) {
-      method.apply(this, arguments)
-    }
+  clearValidate (...arg: any[]) {
+    this.cacheElementUIClearValidate && this.cacheElementUIClearValidate(...arg);
     (this as any).validateState = '';
     (this as any).validateMessage = '';
     (this as any).validateDisabled = false
   }
 
-  onFieldChange () {
+  cacheElementUIOnFieldChange (...arg: any[]) {
+    return (elementUI.FormItem as any).methods.onFieldChange.bind(this, ...arg)
+  }
+
+  onFieldChange (...arg: any[]) {
     const fieldChange = this.fieldChange || ElFormItemVerifyComponent.fieldChange
-    if (!this._verify || fieldChange !== 'clear') (elementUI.FormItem as any).methods.onFieldChange.apply(this, arguments)
+    if (!this._verify || fieldChange !== 'clear') this.cacheElementUIOnFieldChange(...arg)
     else if (this._verify && fieldChange === 'clear') this.clearValidate()
   }
 }
