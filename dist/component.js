@@ -8,10 +8,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import Vue from 'vue';
-import elementUI from 'element-ui';
+import { FormItem } from 'element-ui';
 import rules from './rules';
 import errorMessage from './error-message';
 import { Component, Prop, Watch } from 'vue-property-decorator';
+// 引用一份，解决某些环境下调用了全局Vue.mixin后再调用原FormItem下的方法会造成调用栈溢出
+const ElFormItemMethods = Object.assign({}, FormItem.methods);
 let ElFormItemVerifyComponent = ElFormItemVerifyComponent_1 = class ElFormItemVerifyComponent extends Vue {
     // watch某值并修改该值本身会额外触发一次，性能影响不大，暂不做过滤了。后期可能会用其它方式拦截
     onValidateMessageChanged(msg) {
@@ -29,7 +31,7 @@ let ElFormItemVerifyComponent = ElFormItemVerifyComponent_1 = class ElFormItemVe
     }
     getRules() {
         if (!this._verify)
-            return elementUI.FormItem.methods.getRules.apply(this, arguments);
+            return ElFormItemMethods.getRules.apply(this, arguments);
         // 空检测
         let fieldValue = this.fieldValue + '';
         if (this.space === undefined)
@@ -70,18 +72,19 @@ let ElFormItemVerifyComponent = ElFormItemVerifyComponent_1 = class ElFormItemVe
     }
     // 兼容<2.0.0-beta.1
     clearValidate() {
-        const method = elementUI.FormItem.methods.clearValidate;
-        if (method) {
-            method.apply(this, arguments);
+        if (ElFormItemMethods.clearValidate) {
+            ElFormItemMethods.clearValidate.apply(this, arguments);
         }
-        this.validateState = '';
-        this.validateMessage = '';
-        this.validateDisabled = false;
+        else {
+            this.validateState = '';
+            this.validateMessage = '';
+            this.validateDisabled = false;
+        }
     }
     onFieldChange() {
         const fieldChange = this.fieldChange || ElFormItemVerifyComponent_1.fieldChange;
         if (!this._verify || fieldChange !== 'clear')
-            elementUI.FormItem.methods.onFieldChange.apply(this, arguments);
+            ElFormItemMethods.onFieldChange.apply(this, arguments);
         else if (this._verify && fieldChange === 'clear')
             this.clearValidate();
     }
