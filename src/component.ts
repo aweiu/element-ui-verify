@@ -1,9 +1,11 @@
 import Vue from 'vue'
-import elementUI from 'element-ui'
+import { FormItem } from 'element-ui'
 import rules from './rules'
 import errorMessage from './error-message'
 import { Component, Prop, Watch } from 'vue-property-decorator'
 
+// 引用一份，解决某些环境下调用了全局Vue.mixin后再调用原FormItem下的方法会造成调用栈溢出
+const ElFormItemMethods: { [methodName: string]: Function } = { ...(FormItem as any).methods }
 @Component
 export default class ElFormItemVerifyComponent extends Vue {
   static fieldChange: 'verify' | 'clear'
@@ -41,7 +43,7 @@ export default class ElFormItemVerifyComponent extends Vue {
   }
 
   getRules (): object[] {
-    if (!this._verify) return (elementUI.FormItem as any).methods.getRules.apply(this, arguments)
+    if (!this._verify) return ElFormItemMethods.getRules.apply(this, arguments)
     // 空检测
     let fieldValue = (this as any).fieldValue + ''
     if (this.space === undefined) fieldValue = fieldValue.trim()
@@ -77,18 +79,18 @@ export default class ElFormItemVerifyComponent extends Vue {
 
   // 兼容<2.0.0-beta.1
   clearValidate () {
-    const method = (elementUI.FormItem as any).methods.clearValidate
-    if (method) {
-      method.apply(this, arguments)
+    if (ElFormItemMethods.clearValidate) {
+      ElFormItemMethods.clearValidate.apply(this, arguments)
+    } else {
+      (this as any).validateState = '';
+      (this as any).validateMessage = '';
+      (this as any).validateDisabled = false
     }
-    (this as any).validateState = '';
-    (this as any).validateMessage = '';
-    (this as any).validateDisabled = false
   }
 
   onFieldChange () {
     const fieldChange = this.fieldChange || ElFormItemVerifyComponent.fieldChange
-    if (!this._verify || fieldChange !== 'clear') (elementUI.FormItem as any).methods.onFieldChange.apply(this, arguments)
+    if (!this._verify || fieldChange !== 'clear') ElFormItemMethods.onFieldChange.apply(this, arguments)
     else if (this._verify && fieldChange === 'clear') this.clearValidate()
   }
 }
