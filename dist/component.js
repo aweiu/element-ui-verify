@@ -13,7 +13,7 @@ import rules from './rules';
 import errorMessage from './error-message';
 import { Component, Prop, Watch } from 'vue-property-decorator';
 // 引用一份，解决某些环境下调用了全局Vue.mixin后再调用原FormItem下的方法会造成调用栈溢出
-const ElFormItemMethods = Object.assign({}, FormItem.methods);
+const ElFormItemMethods = FormItem.methods;
 let ElFormItemVerifyComponent = ElFormItemVerifyComponent_1 = class ElFormItemVerifyComponent extends Vue {
     // watch某值并修改该值本身会额外触发一次，性能影响不大，暂不做过滤了。后期可能会用其它方式拦截
     onValidateMessageChanged(msg) {
@@ -33,7 +33,7 @@ let ElFormItemVerifyComponent = ElFormItemVerifyComponent_1 = class ElFormItemVe
         if (!this._verify)
             return ElFormItemMethods.getRules.apply(this, arguments);
         // 空检测
-        let fieldValue = this.fieldValue + '';
+        let fieldValue = this.fieldValue === undefined ? '' : this.fieldValue + '';
         if (this.space === undefined)
             fieldValue = fieldValue.trim();
         if (fieldValue === '') {
