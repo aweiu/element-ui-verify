@@ -5,7 +5,7 @@ import errorMessage from './error-message'
 import { Component, Prop, Watch } from 'vue-property-decorator'
 
 // 引用一份，解决某些环境下调用了全局Vue.mixin后再调用原FormItem下的方法会造成调用栈溢出
-const ElFormItemMethods: { [methodName: string]: Function } = { ...(FormItem as any).methods }
+const ElFormItemMethods: { [methodName: string]: Function } = (FormItem as any).methods
 @Component
 export default class ElFormItemVerifyComponent extends Vue {
   static fieldChange: 'verify' | 'clear'
@@ -45,7 +45,7 @@ export default class ElFormItemVerifyComponent extends Vue {
   getRules (): object[] {
     if (!this._verify) return ElFormItemMethods.getRules.apply(this, arguments)
     // 空检测
-    let fieldValue = (this as any).fieldValue + ''
+    let fieldValue = (this as any).fieldValue === undefined ? '' : (this as any).fieldValue + ''
     if (this.space === undefined) fieldValue = fieldValue.trim()
     if (fieldValue === '') {
       return [{
