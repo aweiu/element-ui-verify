@@ -112,7 +112,7 @@ Vue.use(elementUIVerify, {
 ### emptyMessage
 空检测错误提示
 ```
-<el-form-item prop="head" verify error-message="请上传头像"></el-form-item>
+<el-form-item prop="head" verify empty-message="请上传头像"></el-form-item>
 ```
 ### errorMessage
 用于自定义校验不通过提示(`空检测和自定义校验方法的错误提示不受该值影响`)
