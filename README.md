@@ -95,11 +95,6 @@ Vue.use(elementUIVerify, {
 若要使用本插件，verify选项是必须的，换句话说，如果没有配置该选项，那么您仍然可以正常使用ElementUI原生的校验
 
 该选项还可以接收一个函数值，用于[自定义校验方法](#自定义校验方法)
-### errorMessage
-用于自定义校验不通过提示(`空检测和自定义校验方法的错误提示不受该值影响`)
-```
-<el-form-item prop="numberProp" verify number error-message="请输入正确的数字"></el-form-item>
-```
 ### canBeEmpty
 > 插件默认开启输入内容不为空校验，如果开启该选项，一旦该输入项为空则会忽略该输入项之后所有的校验
 
@@ -113,6 +108,16 @@ Vue.use(elementUIVerify, {
 插件执行空检测时默认忽略空格，也就是说某个输入框中如果只输入了空格是过不了空检测的，除非设置该选项
 ```
 <el-form-item prop="test" verify space></el-form-item>
+```
+### emptyMessage
+空检测错误提示
+```
+<el-form-item prop="head" verify error-message="请上传头像"></el-form-item>
+```
+### errorMessage
+用于自定义校验不通过提示(`空检测和自定义校验方法的错误提示不受该值影响`)
+```
+<el-form-item prop="numberProp" verify number error-message="请输入正确的数字"></el-form-item>
 ```
 ### alias
 `插件保留Macro`
