@@ -42,7 +42,7 @@ let ElFormItemVerifyComponent = ElFormItemVerifyComponent_1 = class ElFormItemVe
                         if (this.canBeEmpty !== undefined || this.minLength <= 0)
                             callback();
                         else
-                            callback(Error(errorMessage.get('empty')));
+                            callback(Error(this.emptyMessage || errorMessage.get('empty')));
                     }
                 }];
         }
@@ -90,17 +90,21 @@ let ElFormItemVerifyComponent = ElFormItemVerifyComponent_1 = class ElFormItemVe
     }
 };
 __decorate([
-    Prop(),
-    __metadata("design:type", String)
-], ElFormItemVerifyComponent.prototype, "canBeEmpty", void 0);
-__decorate([
     Prop([String, Function]),
     __metadata("design:type", Object)
 ], ElFormItemVerifyComponent.prototype, "verify", void 0);
 __decorate([
     Prop(),
     __metadata("design:type", String)
+], ElFormItemVerifyComponent.prototype, "canBeEmpty", void 0);
+__decorate([
+    Prop(),
+    __metadata("design:type", String)
 ], ElFormItemVerifyComponent.prototype, "space", void 0);
+__decorate([
+    Prop(),
+    __metadata("design:type", String)
+], ElFormItemVerifyComponent.prototype, "emptyMessage", void 0);
 __decorate([
     Prop(),
     __metadata("design:type", String)
