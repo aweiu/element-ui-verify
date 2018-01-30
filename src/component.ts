@@ -9,12 +9,14 @@ const ElFormItemMethods: { [methodName: string]: Function } = (FormItem as any).
 @Component
 export default class ElFormItemVerifyComponent extends Vue {
   static fieldChange: 'verify' | 'clear'
-  @Prop()
-  canBeEmpty?: string
   @Prop([String, Function])
   verify?: string | Function
   @Prop()
+  canBeEmpty?: string
+  @Prop()
   space?: string
+  @Prop()
+  emptyMessage?: string
   @Prop()
   errorMessage?: string
   @Prop()
@@ -51,7 +53,7 @@ export default class ElFormItemVerifyComponent extends Vue {
       return [{
         validator: (rule: any, val: any, callback: Function) => {
           if (this.canBeEmpty !== undefined || (this as any).minLength <= 0) callback()
-          else callback(Error(errorMessage.get('empty')))
+          else callback(Error(this.emptyMessage || errorMessage.get('empty')))
         }
       }]
     }
