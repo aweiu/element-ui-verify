@@ -6,7 +6,7 @@
 
 如果说产品开发要讲究用户体验，那插件开发也要讲究开发体验，而好的开发体验，要靠好的api设计来保障
 
-本人专注校验插件开发30年，有祖传的校验插件api设计（玩笑）。主要是参考了之前写的[vue-verify-pop](https://github.com/aweiu/vue-verify-pop)的api，并加以完善，取值精华，去其糟粕，揉和日月之精华。。。
+本人专注校验插件开发30年，有祖传的校验插件api设计（玩笑）。主要是参考了之前写的[vue-verify-pop](https://github.com/aweiu/vue-verify-pop)的api，并加以完善，取其精华，去其糟粕，揉和日月之精华。。。
 
 本插件只是对ElementUI原本的校验方式做了一层封装，核心的校验器仍然是[async-validator](https://github.com/yiminghe/async-validator)，非侵入式，完全不会影响你继续使用ElementUI的原生校验
 
