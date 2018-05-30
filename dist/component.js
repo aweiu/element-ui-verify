@@ -33,7 +33,8 @@ let ElFormItemVerifyComponent = ElFormItemVerifyComponent_1 = class ElFormItemVe
         if (!this._verify)
             return ElFormItemMethods.getRules.apply(this, arguments);
         // 空检测
-        let fieldValue = this.fieldValue === undefined ? '' : this.fieldValue + '';
+        let fieldValue = this.fieldValue;
+        fieldValue = [undefined, null].includes(fieldValue) ? '' : fieldValue + '';
         if (this.space === undefined)
             fieldValue = fieldValue.trim();
         if (fieldValue === '') {
