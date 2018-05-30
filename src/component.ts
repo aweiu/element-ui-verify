@@ -24,7 +24,7 @@ export default class ElFormItemVerifyComponent extends Vue {
   @Prop()
   watch: undefined
   @Prop()
-  fieldChange: string
+  fieldChange?: string
 
   // watch某值并修改该值本身会额外触发一次，性能影响不大，暂不做过滤了。后期可能会用其它方式拦截
   @Watch('validateMessage')
@@ -47,7 +47,8 @@ export default class ElFormItemVerifyComponent extends Vue {
   getRules (): object[] {
     if (!this._verify) return ElFormItemMethods.getRules.apply(this, arguments)
     // 空检测
-    let fieldValue = (this as any).fieldValue === undefined ? '' : (this as any).fieldValue + ''
+    let fieldValue = (this as any).fieldValue
+    fieldValue = [undefined, null].includes(fieldValue) ? '' : fieldValue + ''
     if (this.space === undefined) fieldValue = fieldValue.trim()
     if (fieldValue === '') {
       return [{
