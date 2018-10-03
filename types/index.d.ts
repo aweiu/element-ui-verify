@@ -7,7 +7,7 @@ export interface VerifyRulePropOptions extends PropOptions {
 declare const exp: {
     install(Vue: VueConstructor<any>, options?: {
         errorMessageTemplate?: ErrorMessageTemplate | undefined;
-        fieldChange?: "verify" | "clear" | undefined;
+        fieldChange?: "clear" | "verify" | undefined;
     }): void;
     addRule(name: string | VerifyRulePropOptions, getter: RuleGetter): RuleGetter;
     getRule(name: string): RuleGetter;

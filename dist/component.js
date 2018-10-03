@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var ElFormItemVerifyComponent_1;
 import Vue from 'vue';
 import { FormItem } from 'element-ui';
 import rules from './rules';
@@ -32,44 +33,51 @@ let ElFormItemVerifyComponent = ElFormItemVerifyComponent_1 = class ElFormItemVe
     getRules() {
         if (!this._verify)
             return ElFormItemMethods.getRules.apply(this, arguments);
+        let asyncVerifyRules = [];
         // 空检测
         let fieldValue = this.fieldValue;
         fieldValue = [undefined, null].includes(fieldValue) ? '' : fieldValue + '';
         if (this.space === undefined)
             fieldValue = fieldValue.trim();
         if (fieldValue === '') {
-            return [{
-                    validator: (rule, val, callback) => {
-                        if (this.canBeEmpty !== undefined || this.minLength <= 0)
-                            callback();
-                        else
-                            callback(Error(this.emptyMessage || errorMessage.get('empty')));
-                    }
-                }];
-        }
-        // 合并普通规则
-        let asyncVerifyRules = [];
-        const ruleGetters = rules();
-        for (let name in ruleGetters) {
-            const ruleVal = this[name];
-            if (ruleVal !== undefined)
-                asyncVerifyRules = asyncVerifyRules.concat(ruleGetters[name](ruleVal));
-        }
-        // 统一处理错误提示（代码块放在此处可以只针对普通规则）
-        if (this.errorMessage !== undefined) {
-            for (let rule of asyncVerifyRules)
-                rule.message = this.errorMessage;
-        }
-        // 自定义校验方法置后
-        if (typeof this.verify === 'function')
-            asyncVerifyRules.push({ validator: this.verify });
-        // 当规则为空时，返回一个始终通过的规则来避免空检测错误无法清除
-        // 也可以通过(this as any).clearValidate()的方式实现，不过不太好
-        return asyncVerifyRules.length === 0 ? [{
-                validator(rule, val, callback) {
-                    callback();
+            asyncVerifyRules.push({
+                validator: (rule, val, callback) => {
+                    if (this.canBeEmpty !== undefined || this.minLength <= 0)
+                        callback();
+                    else
+                        callback(Error(this.emptyMessage || errorMessage.get('empty')));
                 }
-            }] : asyncVerifyRules;
+            });
+        }
+        else {
+            // 合并普通规则
+            const ruleGetters = rules();
+            for (let name in ruleGetters) {
+                const ruleVal = this[name];
+                if (ruleVal !== undefined)
+                    asyncVerifyRules = asyncVerifyRules.concat(ruleGetters[name](ruleVal));
+            }
+            // 统一处理错误提示（代码块放在此处可以只针对普通规则）
+            if (this.errorMessage !== undefined) {
+                for (let rule of asyncVerifyRules)
+                    rule.message = this.errorMessage;
+            }
+            // 自定义校验方法置后
+            if (typeof this.verify === 'function')
+                asyncVerifyRules.push({ validator: this.verify });
+            // 当规则为空时，返回一个始终通过的规则来避免空检测错误无法清除
+            // 也可以通过(this as any).clearValidate()的方式实现，不过不太好
+            if (asyncVerifyRules.length === 0) {
+                asyncVerifyRules.push({
+                    validator(rule, val, callback) {
+                        callback();
+                    }
+                });
+            }
+        }
+        // 使elementUI可以检测到必填项从而展示*号
+        asyncVerifyRules[0].required = this.canBeEmpty === undefined;
+        return asyncVerifyRules;
     }
     // 兼容<2.0.0-beta.1
     clearValidate() {
@@ -138,4 +146,3 @@ ElFormItemVerifyComponent = ElFormItemVerifyComponent_1 = __decorate([
     Component
 ], ElFormItemVerifyComponent);
 export default ElFormItemVerifyComponent;
-var ElFormItemVerifyComponent_1;

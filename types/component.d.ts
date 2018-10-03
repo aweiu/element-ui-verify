@@ -12,7 +12,7 @@ export default class ElFormItemVerifyComponent extends Vue {
     onValidateMessageChanged(msg: string): void;
     onWatchChanged(): void;
     readonly _verify: boolean;
-    getRules(): object[];
+    getRules(): any[];
     clearValidate(): void;
     onFieldChange(): void;
 }
