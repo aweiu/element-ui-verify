@@ -32,8 +32,8 @@ Vue.use(elementUIVerify)
 ### 二，在el-form-item上配置校验规则
 ```
 <template>
-  <el-form :model="model">
-    <el-form-item prop="age" verify number>
+  <el-form label-width="100px" :model="model">
+    <el-form-item label="年龄" prop="age" verify int :gt="0">
       <el-input v-model.number="model.age"></el-input>
     </el-form-item>
   </el-form>
@@ -50,7 +50,7 @@ export default{
 }
 </script>
 ```
-ok，您已经完成了一个内容不能为空且为数字的基础校验！([欢迎对比官方版的相似例子](http://element-cn.eleme.io/#/zh-CN/component/form#shu-zi-lei-xing-yan-zheng))
+ok，您已经完成了一个内容为大于0的整数校验！([欢迎对比官方版的相似例子](http://element-cn.eleme.io/#/zh-CN/component/form#shu-zi-lei-xing-yan-zheng))
 
 
 ## 默认支持的校验规则
@@ -85,7 +85,7 @@ Vue.use(elementUIVerify, {
 > 注意：在输入框失去焦点时会始终触发校验
 
 #### verify
-当绑定字段变化时会实时触发校验 
+当绑定字段变化时会实时触发校验
 
 #### clear
 当绑定字段变化时只清空校验结果，不触发校验
