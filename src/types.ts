@@ -13,5 +13,6 @@ export type ErrorMessageTemplate = {
   phone: string,
   email: string,
   verifyCode: string,
+  idCard:string,
   [name: string]: string
 }

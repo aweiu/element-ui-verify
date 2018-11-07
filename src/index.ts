@@ -110,7 +110,7 @@ function init () {
   )
   // 手机号
   exp.addRule('phone', () => ({
-    pattern: /^((1[3-8][0-9])+\d{8})$/,
+    pattern: /^((1[3-9][0-9])+\d{8})$/,
     message: exp.getErrorMessage('phone')
   }))
   // 邮箱
@@ -119,6 +119,11 @@ function init () {
   exp.addRule('verifyCode', () => ({
     pattern: /^\d{6}$/,
     message: exp.getErrorMessage('verifyCode')
+  }))
+   // 6位数字验证码
+   exp.addRule('idCard', () => ({
+    pattern:  /(^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$)|(^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{2}[0-9Xx]$)/,
+    message: exp.getErrorMessage('idCard')
   }))
 }
 
