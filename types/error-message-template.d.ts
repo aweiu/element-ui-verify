@@ -12,5 +12,6 @@ declare const _default: {
     phone: string;
     email: string;
     verifyCode: string;
+    idCard: string;
 };
 export default _default;
