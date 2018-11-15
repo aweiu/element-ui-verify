@@ -105,9 +105,9 @@ function init() {
             }
         }
     ]);
-    // 手机号 https://github.com/VincentSit/ChinaMobilePhoneNumberRegex#match-all
+    // 手机号 https://github.com/aweiu/element-ui-verify/issues/24
     exp.addRule('phone', () => ({
-        pattern: /^(?=\d{11}$)^1(?:3\d|4[57]|5[^4\D]|66|7[^249\D]|8\d|9[89])\d{8}$/,
+        pattern: /^(?=\d{11}$)^1(?:3\d|4[57]|5[^4\D]|6[67]|7[^249\D]|8\d|9[189])\d{8}$/,
         message: exp.getErrorMessage('phone')
     }));
     // 邮箱
