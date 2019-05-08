@@ -18,7 +18,7 @@ const exp = {
     installed = true
     ElFormItemComponent = Vue.component('ElFormItem')
     if (!ElFormItemComponent) throw Error('please install element-ui first')
-    errorMessage.setTemplate(options.errorMessageTemplate || defaultErrorMessageTemplate)
+    errorMessage.setTemplate(...defaultErrorMessageTemplate, options.errorMessageTemplate)
     Component.fieldChange = options.fieldChange || 'verify'
     ElFormItemComponent.mixin(Component)
     init()
