@@ -367,7 +367,7 @@ elementUIVerify.addRule({name: 'intLength', type: Number}, intLength => [
 ```
 <el-form-item prop="prop" verify :int-length="10"></el-form-item>
 ```
-更多示例您可以直接翻看本插件[源码](https://github.com/aweiu/element-ui-verify/blob/master/src/index.ts#L52)中默认规则的添加
+看到这里，相信类似拓展一个支持正则校验的规则这种对你来说肯定不在话下了。更多示例您还可以直接翻看本插件[源码](https://github.com/aweiu/element-ui-verify/blob/master/src/index.ts#L52)中默认规则的添加
 
 ## 插件的默认校验不通过提示模版
 ```

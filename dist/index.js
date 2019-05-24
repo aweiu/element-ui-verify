@@ -105,7 +105,7 @@ function init() {
             }
         }
     ]);
-    // 手机号
+    // 手机号 https://github.com/aweiu/element-ui-verify/issues/24
     exp.addRule('phone', () => ({
         pattern: /^((1[3-9][0-9])+\d{8})$/,
         message: exp.getErrorMessage('phone')
