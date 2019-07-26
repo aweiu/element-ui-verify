@@ -61,6 +61,7 @@ ok，您已经完成了一个内容为大于0的整数校验！([欢迎对比官
 * lt: 校验数字要小于某数
 * lte: 校验数字要小于等于某数
 * maxDecimalLength: 校验数字最大小数位
+> 注意：element 在 2.5.x 之后，对于使用了 `v-model.number` 的 [el-input](https://element.eleme.cn/#/zh-CN/component/input#input-shu-ru-kuang) 将无法输入小数，暂时可以通过给它设置 `type="number"` 来解决（之后插件也可能会考虑更新数字的校验逻辑
 * number: 校验是否为数字
 * int: 校验是否为整数
 * phone: 校验是否为手机号（随着号段的增加，未来可能需要更新）
