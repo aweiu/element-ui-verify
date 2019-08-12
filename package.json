@@ -1,6 +1,6 @@
 {
   "name": "element-ui-verify",
-  "version": "1.1.8",
+  "version": "1.2.0",
   "description": "如果你受够了饿了么ElementUI原生的校验方式，那就来试试它吧！一款更懂你的校验插件",
   "keywords": [
     "vue",
@@ -36,8 +36,7 @@
   },
   "devDependencies": {
     "element-ui": "^2.0.10",
-    "tslint": "^5.8.0",
-    "tslint-config-standard": "^7.0.0",
+    "prettier": "^1.18.2",
     "typescript": "^2.6.2",
     "vue": "^2.5.13"
   }

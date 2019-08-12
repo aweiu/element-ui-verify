@@ -1,6 +1,6 @@
-import Vue from 'vue';
+import Vue from "vue";
 export default class ElFormItemVerifyComponent extends Vue {
-    static fieldChange: 'verify' | 'clear';
+    static fieldChange: "verify" | "clear";
     verify?: string | Function;
     canBeEmpty?: string;
     space?: string;

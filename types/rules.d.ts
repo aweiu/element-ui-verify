@@ -1,4 +1,4 @@
-import { RuleGetter } from './types';
+import { RuleGetter } from "./types";
 export declare type RuleGetters = {
     [name: string]: RuleGetter;
 };
