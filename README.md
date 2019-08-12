@@ -65,7 +65,7 @@ export default{
 </script>
 ```
 
-ok，您已经完成了一个内容为大于 0 的整数校验！([欢迎对比官方版的相似例子](http://element-cn.eleme.io/#/zh-CN/component/form#shu-zi-lei-xing-yan-zheng))
+ok，你已经完成了一个内容为大于 0 的整数校验！([欢迎对比官方版的相似例子](http://element-cn.eleme.io/#/zh-CN/component/form#shu-zi-lei-xing-yan-zheng))
 
 ## 默认支持的校验规则
 
@@ -117,7 +117,7 @@ Vue.use(elementUIVerify, {
 
 ### verify
 
-若要使用本插件，verify 选项是必须的，换句话说，如果没有配置该选项，那么您仍然可以正常使用 ElementUI 原生的校验
+若要使用本插件，verify 选项是必须的，换句话说，如果没有配置该选项，那么你仍然可以正常使用 ElementUI 原生的校验
 
 该选项还可以接收一个函数值，用于[自定义校验方法](#自定义校验方法)
 
@@ -295,7 +295,7 @@ gt,gte,lt,lte,maxDecimalLength 等数字规则无须再写 number 规则
 <el-form-item prop="prop" verify length="哈哈哈"></el-form-item>
 ```
 
-上述这种情况，就很有可能使你的校验文本长度规则出现异常。当然了，如果您对调用者比较相信或者是那种无须接收值的规则，也可以省事点直接这样：
+上述这种情况，就很有可能使你的校验文本长度规则出现异常。当然了，如果你对调用者比较相信或者是那种无须接收值的规则，也可以省事点直接这样：
 
 ```
 import elementUIVerify from 'element-ui-verify'
@@ -355,7 +355,7 @@ elementUIVerify.getErrorMessage('maxDecimalLength', {MDL: 2})
 
 ## 自定义校验方法
 
-如果自带的校验规则满足不了您的需求，可以在校验规则中插入您自己的[校验方法](https://github.com/yiminghe/async-validator#validator)
+如果自带的校验规则满足不了你的需求，可以在校验规则中插入你自己的[校验方法](https://github.com/yiminghe/async-validator#validator)
 
 > 自定义校验方法在校验规则都通过后才会执行
 
@@ -395,7 +395,7 @@ export default{
 
 和自定义校验方法的区别是这个适用于全局，等于增加插件自带的校验规则
 
-前言已经说过，本插件的核心校验器来自 async-validator，故校验规则需要您先参考它的[文档](https://github.com/yiminghe/async-validator)
+前言已经说过，本插件的核心校验器来自 async-validator，故校验规则需要你先参考它的[文档](https://github.com/yiminghe/async-validator)
 
 示例 1：新增一个校验是否为 10 位整数的规则
 
@@ -419,7 +419,7 @@ elementUIVerify.addRule('int10', () => [
 ])
 ```
 
-这样就完成了一个简单的规则拓展，您就可以在任何地方像使用默认规则那样来调用您的自定义规则，如下：
+这样就完成了一个简单的规则拓展，你就可以在任何地方像使用默认规则那样来调用你的自定义规则，如下：
 
 ```
 <el-form-item prop="prop" verify int10></el-form-item>
@@ -452,7 +452,7 @@ elementUIVerify.addRule({name: 'intLength', type: Number}, intLength => [
 <el-form-item prop="prop" verify :int-length="10"></el-form-item>
 ```
 
-看到这里，相信类似拓展一个支持正则校验的规则这种对你来说肯定不在话下了。更多示例您还可以直接翻看本插件[源码](https://github.com/aweiu/element-ui-verify/blob/master/src/index.ts#L43)中默认规则的添加
+看到这里，相信类似拓展一个支持正则校验的规则这种对你来说肯定不在话下了。更多示例你还可以直接翻看本插件[源码](https://github.com/aweiu/element-ui-verify/blob/master/src/index.ts#L43)中默认规则的添加
 
 ## 插件的默认校验不通过提示模版
 
@@ -530,7 +530,7 @@ elementUIVerify.addRule({name: 'intLength', type: Number}, intLength => [
 
 如果这么写了，输入非数字的错误提示会是原始错误提示模板中的内容。为了不破坏 ElementUI 的原生校验（修改原始错误提示模板）和最大化复用 async-validator 内置的校验，只得通过拆分规则来让校验错误提示更具体
 
-之后您在自定义校验规则的时候，如遇类似问题也可考虑通过规则拆分来让错误提示更具体
+之后你在自定义校验规则的时候，如遇类似问题也可考虑通过规则拆分来让错误提示更具体
 
 ## 后话
 
