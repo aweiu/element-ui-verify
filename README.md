@@ -39,4 +39,4 @@ ok，你已经完成了一个内容为大于 0 的整数校验！([欢迎对比�
 
 ## 文档
 
-https://aweiu.com/documents/ant-modifier/
+https://aweiu.com/documents/element-ui-verify/
