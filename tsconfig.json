@@ -2,7 +2,8 @@
   "compilerOptions": {
     "strict": true,
     "moduleResolution": "node",
-    "target": "ES2017",
+    "target": "ES5",
+    "lib": ["dom", "es6"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "declaration": true,
